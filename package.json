@@ -6,13 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rimraf dist",
-    "-postinstall": "cd ./server && npm install && cd ./client && npm install",
+    "postinstall": "cd ./server && npm install --unsafe-perm && cd .. && cd ./client && npm install --unsafe-perm",
     "build": "npm run build:server && npm run build:client",
     "start": "cd ./server && npm run start && cd ..",
     "start:dev": "concurrently \"cd ./server && npm run start:dev\" \"cd ./client && npm run start\"",
-    "prebuild:client": "cd ./client && npm install --unsafe-perm",
     "build:client": "cd ./client && npm run build && cd ..",
-    "prebuild:server": "cd ./server && npm install --unsafe-perm",
     "build:server": "cd ./server && npm run build && cd .."
   },
   "keywords": [
