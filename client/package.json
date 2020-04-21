@@ -4,6 +4,7 @@
   "description": "Short URL Client App",
   "proxy": "http://localhost:5000",
   "scripts": {
+    "prebuild": "npm rebuild node-sass",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
