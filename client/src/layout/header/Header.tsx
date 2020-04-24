@@ -1,9 +1,11 @@
 import { AppBar, IconButton, makeStyles, Toolbar, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import React, { PropsWithChildren } from 'react';
 import classes from './Header.module.scss';
 import { AuthContextConsumer } from '../../providers/AuthContext';
+import { GoogleLogout } from 'react-google-login';
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
@@ -26,10 +28,23 @@ export default function Header(props: PropsWithChildren<{}>) {
             ShortURL
           </Typography>
           {
-            authContext.name ? <Button>{authContext.name}</Button> : null
-          }
-          {
-            authContext.isSignedIn ? <Button onClick={authContext.logOut}>Logout</Button> : null
+            authContext.isSignedIn && authContext.name ?
+              (
+                <React.Fragment>
+                  <Typography className={classes.UserName} variant="h6" color="inherit">
+                    {authContext.name}
+                  </Typography>
+                  <GoogleLogout
+                    clientId={authContext.clientId}
+                    onLogoutSuccess={authContext.logOut}
+                    render={renderProps => (
+                    <IconButton edge="start" className={classes.LogoutButton} color="inherit" aria-label="menu" onClick={renderProps.onClick}>
+                      <ExitToAppIcon></ExitToAppIcon>
+                    </IconButton>
+                    )}>
+                  </GoogleLogout>
+                </React.Fragment>
+              ) : null
           }
         </Toolbar>
       </AppBar>

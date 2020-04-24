@@ -2,9 +2,7 @@ import React from "react";
 import classes from "./Auth.module.scss";
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { AuthContextConsumer, AuthContextValues } from "../../providers/AuthContext";
-
-const CLIENT_ID = "788121941524-7qadls9jrv1ke6dv8jie704g9ipckuph.apps.googleusercontent.com";
-
+import AppLogo from '../../assets/images/app-logo.png';
 
 export default class Auth extends React.Component<{}> {
 
@@ -15,7 +13,7 @@ export default class Auth extends React.Component<{}> {
     }
   }
 
-  onError(reason: GoogleLoginResponse) {
+  onError(reason: any) {
     console.log(reason);
   }
 
@@ -24,10 +22,13 @@ export default class Auth extends React.Component<{}> {
       <AuthContextConsumer>
         {(authContext) => (
           <div className={classes.Auth}>
-            <h1>Signin Page</h1>
+            <h1 className={classes.AppName}>
+              <img src={AppLogo}></img>
+            </h1>
             <p>You are not signed in. Click here to sign in.</p>
             <GoogleLogin
-              clientId={CLIENT_ID}
+              clientId={authContext.clientId}
+              isSignedIn={true}
               onSuccess={(response) => {
                 this.onSuccess(response, authContext);
               }}

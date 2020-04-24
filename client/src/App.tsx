@@ -45,10 +45,12 @@ export default class App extends React.Component<{}, AppState> {
       );
     } else {
       return (
-        <Switch>
-          <Route exact path="/home" component={UrlList}></Route>
-          <Redirect to="/home"></Redirect>
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route exact path="/home" component={UrlList}></Route>
+            <Redirect to="/home"></Redirect>
+          </Switch>
+        </Layout>
       );
     }
   }
@@ -58,9 +60,9 @@ export default class App extends React.Component<{}, AppState> {
       <AuthContextProvider>
         <BrowserRouter>
           <AuthContextConsumer>
-            {(authContext: AuthContextValues) => (
-              <Layout>{this.getRoutes(authContext.isSignedIn)}</Layout>
-            )}
+            {
+              (authContext: AuthContextValues) => this.getRoutes(authContext.isSignedIn)
+            }
           </AuthContextConsumer>
         </BrowserRouter>
       </AuthContextProvider>

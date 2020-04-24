@@ -8,11 +8,13 @@ export interface AuthState {
 }
 
 export interface AuthContextValues extends AuthState {
+  clientId: string;
   logIn?: (token: string, name: string, email: string) => void;
   logOut?:  () => void;
 }
 
-const INITIAL_STATE = { isSignedIn: false, token: '', name: '', email: '' };
+const CLIENT_ID = "788121941524-7qadls9jrv1ke6dv8jie704g9ipckuph.apps.googleusercontent.com";
+const INITIAL_STATE = { clientId: CLIENT_ID, isSignedIn: false, token: '', name: '', email: '' };
 
 export const AuthContext = React.createContext<AuthContextValues>(INITIAL_STATE);
 
@@ -36,6 +38,7 @@ export class AuthContextProvider extends Component {
   render() {
     const providerValues: AuthContextValues = {
       ...this.state,
+      clientId: CLIENT_ID,
       logOut: this.logOut.bind(this),
       logIn: this.logIn.bind(this)
     };

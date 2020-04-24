@@ -1,10 +1,12 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow, InputBase } from '@material-ui/core';
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 import classes from './UrlList.module.scss';
+import { AuthContext } from '../../providers/AuthContext';
+import UrlListAxios, { setupAuthorization } from '../../url-list.axios';
 
 interface UrlListItem {
   id: string;
@@ -19,19 +21,24 @@ const UrlList = () => {
     const [urlListState, setUrlListState] = useState<UrlListItem[]>([]);
     const [newUrlInputState, setNewUrlInputState] = useState<string>('');
 
+    const authContext = useContext(AuthContext);
     const urlInputFieldRef = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+      setupAuthorization(authContext.token);
+    });
+
     const loadUrlList = () => {
-      axios.get('/api/v1/url-management')
-      .then((response) => {
-        const urlList: UrlListItem[] = response.data;
-        const updatedUrlList = urlList.map(urlListItem => {
-          return {
-            ...urlListItem,
-            // redirection_url:  `http://localhost:8080/${urlListItem.hashcode}`
-            redirection_url:  `${window.location.origin}/${urlListItem.hashcode}`
-          };
-        });
+      UrlListAxios.get('/api/v1/url-management')
+        .then((response) => {
+          const urlList: UrlListItem[] = response.data;
+          const updatedUrlList = urlList.map(urlListItem => {
+            return {
+              ...urlListItem,
+              // redirection_url:  `http://localhost:8080/${urlListItem.hashcode}`
+              redirection_url:  `${window.location.origin}/${urlListItem.hashcode}`
+            };
+          });
 
         setUrlListState(updatedUrlList);
       });
@@ -49,7 +56,7 @@ const UrlList = () => {
 
     const deleteUrlListItemHandler = (id: string) => {
       return () => {
-        axios.delete(`/api/v1/url-management/${id}`).then(() => {
+        UrlListAxios.delete(`/api/v1/url-management/${id}`).then(() => {
           loadUrlList();
         });
       };
@@ -63,7 +70,7 @@ const UrlList = () => {
 
     const addUrlHandler = () => {
       if (newUrlInputState) {
-        axios.post('/api/v1/url-management/shorten', {
+        UrlListAxios.post('/api/v1/url-management/shorten', {
           url: newUrlInputState
         }).then(() => {
           loadUrlList();
