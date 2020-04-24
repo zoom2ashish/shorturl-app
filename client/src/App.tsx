@@ -1,50 +1,69 @@
-import { makeStyles, Container } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Header from './components/header/Header';
-import UrlList from './components/url-list/UrlList';
+import Auth from './containers/Auth/Auth';
+import UrlList from './containers/url-list/UrlList';
+import Layout from './layout/layout/Layout';
+import { AuthContextProvider, AuthContextValues, AuthContextConsumer } from './providers/AuthContext';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+interface AppState {
+  isSignedIn: boolean;
+  token: string;
+  name: string;
+  email: string;
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  wrapperDiv: {
-    display: 'flex',
-    flex: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  mainContent: {
-    margin: '60px'
+export default class App extends React.Component<{}, AppState> {
+  constructor(props: PropsWithChildren<any>) {
+    super(props);
+    this.state = {
+      isSignedIn: false,
+      token: "",
+      name: "",
+      email: "",
+    };
   }
-}));
 
-export default function App() {
-  const classes = useStyles();
+  onSignedIn(token: string, profile: any) {
+    this.setState({
+      isSignedIn: !!token,
+      token,
+      name: profile.name,
+      email: profile.email,
+    });
+  }
 
-  return (
-    <div className={classes.wrapperDiv}>
-      <Header></Header>
-      <Container maxWidth="lg" className={classes.mainContent}>
-        <UrlList></UrlList>
-        <Copyright />
-      </Container>
-    </div>
-  );
+  getRoutes(isSignedIn: boolean) {
+    if (!isSignedIn) {
+      return (
+        <Switch>
+          <Route path="/auth">
+            <Auth></Auth>
+          </Route>
+          <Redirect to="/auth"></Redirect>
+        </Switch>
+      );
+    } else {
+      return (
+        <Switch>
+          <Route exact path="/home" component={UrlList}></Route>
+          <Redirect to="/home"></Redirect>
+        </Switch>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <AuthContextProvider>
+        <BrowserRouter>
+          <AuthContextConsumer>
+            {(authContext: AuthContextValues) => (
+              <Layout>{this.getRoutes(authContext.isSignedIn)}</Layout>
+            )}
+          </AuthContextConsumer>
+        </BrowserRouter>
+      </AuthContextProvider>
+    );
+  }
 }

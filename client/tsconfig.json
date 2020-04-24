@@ -19,7 +19,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "sourceMap": true
+    "sourceMap": true,
+    "types": [
+      "gapi",
+      "gapi.auth2"
+    ]
   },
   "include": [
     "./src"
