@@ -23,7 +23,7 @@ export default class Auth extends React.Component<{}> {
         {(authContext) => (
           <div className={classes.Auth}>
             <h1 className={classes.AppName}>
-              <img src={AppLogo}></img>
+              <img alt="ShortURL App Logo" src={AppLogo}></img>
             </h1>
             <p>You are not signed in. Click here to sign in.</p>
             <GoogleLogin
