@@ -4,6 +4,7 @@ import { UrlItemSchema } from 'src/schemas/url-item.schema';
 import { UrlItemsService } from 'src/services/url-items.services';
 
 import { UrlManagerController } from './url-manager.controller';
+import { UrlRedirectionController } from './url-redirection.controller';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { UrlManagerController } from './url-manager.controller';
     ])
   ],
   controllers: [
-    UrlManagerController
+    UrlManagerController,
+    UrlRedirectionController
   ],
   providers: [
     UrlItemsService

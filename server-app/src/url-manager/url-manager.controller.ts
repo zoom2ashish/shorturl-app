@@ -17,8 +17,8 @@ export class UrlManagerController {
   }
 
   @Get('/:hash')
-  async get(@Param('hash') hascode: string) {
-    const urlItem = await this.urlItemsService.findByHash(hascode);
+  async get(@Param('hash') hashcode: string) {
+    const urlItem = await this.urlItemsService.findByHash(hashcode);
 
     if (urlItem) {
       return urlItem;

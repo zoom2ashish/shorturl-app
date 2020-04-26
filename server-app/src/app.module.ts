@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UrlManagerModule } from './url-manager/url-manager.module';
 
 @Module({
@@ -15,10 +13,8 @@ import { UrlManagerModule } from './url-manager/url-manager.module';
     UrlManagerModule
   ],
   controllers: [
-    AppController
   ],
   providers: [
-    AppService
   ]
 })
 export class AppModule {
