@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "rimraf dist server-app/dist client/build",
-    "postinstall": "npm install --prefix server-app && npm install --prefix client",
-    "build": "npm run build:server-app && npm run build:client",
-    "start": "cd ./server-app && npm run start",
+    "prebuild": "rimraf dist server/dist client/build",
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "build": "npm run build:server && npm run build:client",
+    "start": "cd ./server && npm run start",
     "start:debug": "./node_modules/.bin/ts-node-dev --inspect-brk=33444 ./server/src/index.ts",
-    "start:dev": "concurrently \"npm run start:server-app\" \"cd ./client && npm run start\"",
+    "start:dev": "concurrently \"npm run start:server\" \"cd ./client && npm run start\"",
     "build:client": "cd ./client && npm run build",
-    "build:server-app": "cd ./server-app && npm run build",
-    "start:server-app": "cd ./server-app && npm run start",
-    "start:server-app:debug": "cd ./server-app && npm run start:debug"
+    "build:server": "cd ./server && npm run build",
+    "start:server": "cd ./server && npm run start",
+    "start:debug:server": "cd ./server-app && npm run start:debug"
   },
   "keywords": [
     "Short",
