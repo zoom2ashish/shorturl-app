@@ -1,4 +1,4 @@
-import { AppBar, IconButton, makeStyles, Toolbar, Button } from '@material-ui/core';
+import { AppBar, IconButton, makeStyles, Toolbar } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';

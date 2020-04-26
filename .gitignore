@@ -18,6 +18,7 @@ build
 # IDEs and editors
 /.idea
 /.vscode
+*.code-workspace
 
 # misc
 .DS_Store

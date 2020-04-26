@@ -1,4 +1,4 @@
-import React, { Component, Children, PropsWithChildren } from "react";
+import React, { Component, PropsWithChildren } from "react";
 
 export interface AuthState {
   isSignedIn: boolean;

@@ -1,10 +1,11 @@
-import { BodyParams, Controller, Get, PathParams, Post, Required, Status, $log, Delete } from '@tsed/common';
+import { BodyParams, Controller, Get, PathParams, Post, Required, Status, $log, Delete, Scope, ProviderScope } from '@tsed/common';
 import { CreateShortUrlPayload } from '../../models/url-management.model';
 import { NotFound, BadRequest, InternalServerError } from 'ts-httpexceptions';
 
 import { ShortenedUrl } from '../../models/shortened-url.model';
 import { UrlManagerService } from '../../services/url-manager.service';
 import { encodeUrl } from '../../utils/url-shortner.util';
+import { Authenticate } from '@tsed/passport';
 
 @Controller('/url-management')
 export class UrlManagementController {
@@ -13,6 +14,7 @@ export class UrlManagementController {
   }
 
   @Get()
+  @Authenticate('googleJwt')
   @Status(200, {type: ShortenedUrl, collectionType: Array})
   async getAll(): Promise<ShortenedUrl[]> {
     return this.urlManager.query();
