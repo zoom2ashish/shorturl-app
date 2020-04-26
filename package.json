@@ -34,15 +34,6 @@
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/platform-express": "^7.0.0",
     "@svgr/webpack": "4.3.3",
-    "@tsed/common": "5.42.2",
-    "@tsed/core": "5.42.2",
-    "@tsed/di": "5.42.2",
-    "@tsed/exceptions": "^5.49.0",
-    "@tsed/mongoose": "5.42.2",
-    "@tsed/passport": "^5.49.0",
-    "@tsed/swagger": "5.42.2",
-    "@tsed/testing": "5.42.2",
-    "@tsed/testing-mongoose": "5.42.2",
     "@types/swagger-schema-official": "2.0.20",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
@@ -79,7 +70,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
-    "ts-httpexceptions": "^4.1.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
