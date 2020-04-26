@@ -8,7 +8,7 @@ import * as methodOverride from 'method-override';
 
 const envConfig = dotEnv.config();
 console.log('envConfig: ', envConfig);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 async function bootstrap() {
   try {

@@ -11,8 +11,8 @@ interface UrlListItem {
   id: string;
   url: string;
   hashcode: string;
-  created_by: string;
-  created_at: number;
+  createdBy: string;
+  createdAt: number;
   redirection_url?: string;
 }
 
@@ -28,7 +28,7 @@ const UrlList = () => {
     });
 
     const loadUrlList = () => {
-      UrlListAxios.get('/api/v1/url-management')
+      UrlListAxios.get('/api/v1/urls')
         .then((response) => {
           const urlList: UrlListItem[] = response.data;
           const updatedUrlList = urlList.map(urlListItem => {
@@ -55,7 +55,7 @@ const UrlList = () => {
 
     const deleteUrlListItemHandler = (id: string) => {
       return () => {
-        UrlListAxios.delete(`/api/v1/url-management/${id}`).then(() => {
+        UrlListAxios.delete(`/api/v1/urls/${id}`).then(() => {
           loadUrlList();
         });
       };
@@ -69,7 +69,7 @@ const UrlList = () => {
 
     const addUrlHandler = () => {
       if (newUrlInputState) {
-        UrlListAxios.post('/api/v1/url-management/shorten', {
+        UrlListAxios.post('/api/v1/urls', {
           url: newUrlInputState
         }).then(() => {
           loadUrlList();
@@ -113,8 +113,8 @@ const UrlList = () => {
                 <TableCell align="right">
                   <a href={urlListItem.redirection_url} rel="noopener noreferrer" target="_blank">{urlListItem.hashcode}</a>
                 </TableCell>
-                <TableCell align="right">{urlListItem.created_by}</TableCell>
-                <TableCell align="right">{urlListItem.created_at}</TableCell>
+                <TableCell align="right">{urlListItem.createdBy}</TableCell>
+                <TableCell align="right">{urlListItem.createdAt}</TableCell>
               </TableRow>
             ))}
           </TableBody>

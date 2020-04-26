@@ -10,7 +10,7 @@
     "build": "npm run build:server && npm run build:client",
     "start": "cd ./server && npm run start",
     "start:debug": "./node_modules/.bin/ts-node-dev --inspect-brk=33444 ./server/src/index.ts",
-    "start:dev": "concurrently \"cd ./server && npm run start:dev\" \"cd ./client && npm run start\"",
+    "start:dev": "concurrently \"npm run start:server-app\" \"cd ./client && npm run start\"",
     "build:client": "cd ./client && npm run build",
     "build:server": "cd ./server && npm run build",
     "build:server-app": "cd ./server-app && npm run build",
